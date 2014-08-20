@@ -1,0 +1,9 @@
+{
+  "name": "ui-bootstrap",
+  "version": "0.0.1",
+  "homepage": "http://ux/uxweb/uiBootstrap",
+  "private": true,
+  "devDependencies": {
+    "mongodb": "^1.4.8"
+  }
+}
