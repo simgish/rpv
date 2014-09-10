@@ -20,13 +20,33 @@ var MarsSchema = new mongoose.Schema({
 
 var Mars = mongoose.model('orders', MarsSchema);
 
-app.get('/gettrips', function(req, res) {
+app.get('/trips', function(req, res) {
   Mars.find(function(err, orders) {
     if (err) {
       res.send(err);
     }
 
     res.json(orders);
+  });
+});
+
+app.post('trips', function(req, res) {
+  Mars.create({
+    text: req.body.text,
+    done: false
+  }, function(err, trip) {
+    if (err) {
+      res.send(err);
+    }
+
+    Mars.find(function(err, trips) {
+      if (err) {
+        res.send(err);
+      }
+
+      res.json(trips);
+    });
+
   });
 });
 
