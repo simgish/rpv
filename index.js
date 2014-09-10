@@ -12,16 +12,36 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 // app.use(methodOverride());
 
-var MarsSchema = new mongoose.Schema({
-  order: Number,
-  name: String,
-  days: Number
+var ClientSchema = new mongoose.Schema({
+  contactName: String,
+  dba: String,
+  address: {
+    line1: String,
+    line2: String,
+    city: String,
+    state: String,
+    zip: Number,
+    country: String
+  },
+  billingAddress: {
+    name: String,
+    line1: String,
+    line2: String,
+    city: String,
+    state: String,
+    zip: Number,
+    country: String
+  },
+  phone: String,
+  website: String,
+  email: String,
+  description: String
 });
 
-var Mars = mongoose.model('orders', MarsSchema);
+var CM = mongoose.model('clients', ClientSchema);
 
-app.get('/trips', function(req, res) {
-  Mars.find(function(err, orders) {
+app.get('/clients', function(req, res) {
+  CM.find(function(err, clients) {
     if (err) {
       res.send(err);
     }
@@ -30,8 +50,8 @@ app.get('/trips', function(req, res) {
   });
 });
 
-app.post('trips', function(req, res) {
-  Mars.create({
+app.post('client', function(req, res) {
+  CM.create({
     text: req.body.text,
     done: false
   }, function(err, trip) {
@@ -39,12 +59,12 @@ app.post('trips', function(req, res) {
       res.send(err);
     }
 
-    Mars.find(function(err, trips) {
+    CM.find(function(err, clients) {
       if (err) {
         res.send(err);
       }
 
-      res.json(trips);
+      res.json(clients);
     });
 
   });
