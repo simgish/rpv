@@ -38,20 +38,30 @@ var ClientSchema = new mongoose.Schema({
   description: String
 });
 
-var CM = mongoose.model('clients', ClientSchema);
+var Client = mongoose.model('clients', ClientSchema);
 
 app.get('/clients', function(req, res) {
-  CM.find(function(err, clients) {
+  Client.find(function(err, clients) {
     if (err) {
       res.send(err);
     }
 
-    res.json(orders);
+    res.json(clients);
   });
 });
 
-app.post('client', function(req, res) {
-  CM.create({
+app.get('/clients/:id', function(req, res) {
+  return Client.findById(req.params.id, function(err, client) {
+    if (!err) {
+      return res.send(client);
+    } else {
+      res.json(client);
+    }
+  });
+});
+
+app.post('/client', function(req, res) {
+  Client.create({
     text: req.body.text,
     done: false
   }, function(err, trip) {
@@ -59,7 +69,7 @@ app.post('client', function(req, res) {
       res.send(err);
     }
 
-    CM.find(function(err, clients) {
+    Client.find(function(err, clients) {
       if (err) {
         res.send(err);
       }
