@@ -61,9 +61,7 @@ app.get('/api/clients/:id', function(req, res) {
 });
 
 app.post('/api/clients', function(req, res) {
-  var client;
-
-  client = new Client({
+  var client = new Client({
     contactName: req.body.contactName,
     dba: req.body.dba,
     address: {
@@ -86,9 +84,18 @@ app.post('/api/clients', function(req, res) {
     phone: req.body.phone,
     website: req.body.website,
     email: req.body.email,
-    description: req.body.description
+    description: req.body.description 
   });
 
+  client.save(function(err) {
+    if (!err) {
+      console.log('created');
+    } else {
+      return console.log(err);
+    }
+  });
+
+  return res.send(client);
 });
 
 app.listen(8989);
