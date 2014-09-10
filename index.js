@@ -40,7 +40,7 @@ var ClientSchema = new mongoose.Schema({
 
 var Client = mongoose.model('clients', ClientSchema);
 
-app.get('/clients', function(req, res) {
+app.get('/api/clients', function(req, res) {
   Client.find(function(err, clients) {
     if (err) {
       res.send(err);
@@ -50,7 +50,7 @@ app.get('/clients', function(req, res) {
   });
 });
 
-app.get('/clients/:id', function(req, res) {
+app.get('/api/clients/:id', function(req, res) {
   return Client.findById(req.params.id, function(err, client) {
     if (!err) {
       return res.send(client);
@@ -60,7 +60,7 @@ app.get('/clients/:id', function(req, res) {
   });
 });
 
-app.post('/client', function(req, res) {
+app.post('/api/clients', function(req, res) {
   Client.create({
     text: req.body.text,
     done: false
