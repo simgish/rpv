@@ -4,7 +4,7 @@ mongoose = require('mongoose'),
 bodyParser = require('body-parser');
 
 // mongoose.connect('mongodb://mars:Winter12@ds063869.mongolab.com:63869');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/clients');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
