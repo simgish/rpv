@@ -98,6 +98,44 @@ app.post('/api/clients', function(req, res) {
   return res.send(client);
 });
 
+app.put('/api/clients/:id', function(req, res) {
+  return Client.findById(req.params.id, function(err, client) {
+    client.contactName = req.body.contactName,
+    client.dba = req.body.dba,
+    client.address = {
+      line1: req.body.address.line1,
+      line2: req.body.address.line2,
+      city: req.body.address.city,
+      state: req.body.address.state,
+      zip: req.body.address.zip,
+      country: req.body.address.country
+    },
+    client.billingAddress = {
+      name: req.body.billingAddress.name,
+      line1: req.body.billingAddress.line1,
+      line2: req.body.billingAddress.line2,
+      city: req.body.billingAddress.city,
+      state: req.body.billingAddress.state,
+      zip: req.body.billingAddress.zip,
+      country: req.body.billingAddress.country
+    },
+    client.phone = req.body.phone,
+    client.website = req.body.website,
+    client.email = req.body.email,
+    client.description = req.body.description;
+
+    client.save(function(err) {
+      if (!err) {
+        console.log('updated');
+      } else {
+        console.log(err);
+      }
+
+      return res.send(client);
+    });
+  });
+});
+
 app.listen(8989);
 
 console.log('api listening on 8989');
