@@ -3,14 +3,12 @@ app = express(),
 mongoose = require('mongoose'),
 bodyParser = require('body-parser');
 
-// mongoose.connect('mongodb://mars:Winter12@ds063869.mongolab.com:63869');
 mongoose.connect('mongodb://localhost/clients');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
-// app.use(methodOverride());
 
 var ClientSchema = new mongoose.Schema({
   contactName: String,
@@ -89,7 +87,6 @@ app.post('/api/clients', function(req, res) {
 
   client.save(function(err) {
     if (!err) {
-      console.log('created');
     } else {
       return console.log(err);
     }
@@ -131,12 +128,23 @@ app.put('/api/clients/:id', function(req, res) {
 
     client.save(function(err) {
       if (!err) {
-        console.log('updated');
       } else {
         console.log(err);
       }
 
       return res.send(client);
+    });
+  });
+});
+
+app.delete('/api/clients/:id', function(req, res) {
+  return Client.findById(req.params.id, function(err, client) {
+    return client.remove(function(err) {
+      if (!err) {
+        return res.send('');
+      } else {
+        console.log(err);
+      }
     });
   });
 });
