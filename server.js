@@ -138,6 +138,11 @@ app.put('/api/clients/:id', function(req, res) {
 });
 
 app.delete('/api/clients/:id', function(req, res) {
+
+  if (req.params.id && req.params.id === '') {
+    return console.log('No id specified');
+  }
+
   return Client.findById(req.params.id, function(err, client) {
     return client.remove(function(err) {
       if (!err) {
