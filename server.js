@@ -104,9 +104,9 @@ app.put('/api/clients/:id', function(req, res) {
   return Client.findById(req.params.id, function(err, client) {
 
     if (!client) {
-      return res.send('client does not exist);
+      return res.send('client does not exist');
     }
-    
+
     client.contactName = req.body.contactName,
     client.dba = req.body.dba,
     client.address = {
