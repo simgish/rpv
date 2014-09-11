@@ -99,6 +99,11 @@ app.post('/api/clients', function(req, res) {
 });
 
 app.put('/api/clients/:id', function(req, res) {
+
+  if (req.params.id && req.params.id === '') {
+    return console.log('No id specified');
+  }
+
   return Client.findById(req.params.id, function(err, client) {
     client.contactName = req.body.contactName,
     client.dba = req.body.dba,
