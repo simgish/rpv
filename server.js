@@ -144,6 +144,9 @@ app.delete('/api/clients/:id', function(req, res) {
   }
 
   return Client.findById(req.params.id, function(err, client) {
+    if (err) {
+      return res.send('id does not exist');
+    }
     return client.remove(function(err) {
       if (!err) {
         return res.send('');
