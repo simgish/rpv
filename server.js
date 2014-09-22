@@ -38,6 +38,8 @@ var ClientSchema = new mongoose.Schema({
 
 var Client = mongoose.model('clients', ClientSchema);
 
+
+// Get all clients
 app.get('/api/clients', function(req, res) {
   Client.find(function(err, clients) { 
     if (err) {
@@ -48,6 +50,8 @@ app.get('/api/clients', function(req, res) {
   });
 });
 
+
+// Get client by id
 app.get('/api/clients/:id', function(req, res) {
   return Client.findById(req.params.id, function(err, client) {
     if (!err) {
@@ -58,6 +62,8 @@ app.get('/api/clients/:id', function(req, res) {
   });
 });
 
+
+// Add client
 app.post('/api/clients', function(req, res) {
   var client = new Client({
     contactName: req.body.contactName,
@@ -95,6 +101,8 @@ app.post('/api/clients', function(req, res) {
   return res.send(client);
 });
 
+
+// Update client
 app.put('/api/clients/:id', function(req, res) {
 
   if (req.params.id && req.params.id === '') {
@@ -146,6 +154,8 @@ app.put('/api/clients/:id', function(req, res) {
   });
 });
 
+
+// Delete client
 app.delete('/api/clients/:id', function(req, res) {
 
   if (req.params.id && req.params.id === '') {
