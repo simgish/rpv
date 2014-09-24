@@ -1,7 +1,8 @@
 var express = require("express"),
 app = express(),
 mongoose = require('mongoose'),
-bodyParser = require('body-parser');
+bodyParser = require('body-parser'),
+cors = require('cors');
 
 mongoose.connect('mongodb://localhost/clients');
 
@@ -9,6 +10,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
+app.use(cors({origin:"*"}));
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
